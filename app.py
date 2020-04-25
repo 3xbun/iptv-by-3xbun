@@ -2,10 +2,11 @@ from flask import Flask, render_template, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from pythainlp.util import thai_strftime
+import os
 
 app = Flask(__name__)
 app.jinja_env.globals['thai_strftime'] = thai_strftime
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:top2541top@localhost/channel'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'postgresql://postgres:top2541top@localhost/channel'
 db = SQLAlchemy(app)
 
 class Channel(db.Model):
