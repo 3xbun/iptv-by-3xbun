@@ -5,7 +5,7 @@ from pythainlp.util import thai_strftime
 
 app = Flask(__name__)
 app.jinja_env.globals['thai_strftime'] = thai_strftime
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///channel.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:top2541top@localhost/channel'
 db = SQLAlchemy(app)
 
 class Channel(db.Model):
@@ -13,7 +13,7 @@ class Channel(db.Model):
     channel = db.Column(db.String(32), nullable=False)
     url = db.Column(db.Text, nullable=False)
     logo = db.Column(db.Text)
-    status = db.Column(db.String(4), nullable=False, default='Alive')
+    status = db.Column(db.String(5), nullable=False, default='Alive')
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
     def __repr__(self):
