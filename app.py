@@ -23,10 +23,11 @@ class Channel(db.Model):
 
 @app.route('/')
 def index():
-    m3u_link = "https://raw.githubusercontent.com/3xbun/WLSIL-Website/master/iptv"
+    m3u_link = "https://raw.githubusercontent.com/3xbun/iptv-by-3xbun/migration/iptv-by-3xbun"
+    update = thai_strftime(datetime.fromtimestamp(os.path.getmtime('iptv-by-3xbun')), '%c')
 
     channels = Channel.query.order_by(Channel.channel).all()
-    return render_template('index.html', m3u_link=m3u_link, channels=channels)
+    return render_template('index.html', m3u_link=m3u_link, channels=channels, update=update)
 
 @app.route('/delete/<id>')
 def delete(id):
